@@ -14,7 +14,7 @@ export function CoversSection({ version }: { version: ContentVersion }) {
 
   return (
     <section id="covers" className="min-h-screen flex flex-col md:flex-row p-4 md:p-8 lg:p-12 gap-4 md:gap-8 items-center justify-center">
-      <div className="flex-1 w-full aspect-[9/16] md:aspect-auto md:h-[80vh] relative rounded-2xl overflow-hidden shadow-2xl">
+      <div className="flex-1 w-full aspect-video md:aspect-auto md:h-[80vh] relative rounded-2xl overflow-hidden shadow-2xl">
         <Image
           src={urlFor(covers[heroIndex]).width(1200).url()}
           alt={`Hero cover ${heroIndex + 1}`}
@@ -30,7 +30,7 @@ export function CoversSection({ version }: { version: ContentVersion }) {
             key={idx}
             onClick={() => setHeroIndex(idx)}
             className={cn(
-              "relative min-w-[100px] w-[100px] md:w-[160px] aspect-[9/16] rounded-lg overflow-hidden transition-all duration-300 border-2",
+              "relative min-w-[100px] w-[100px] md:w-[160px] aspect-video rounded-lg overflow-hidden transition-all duration-300 border-2",
               heroIndex === idx ? "border-[var(--accent)] scale-105 shadow-lg" : "border-transparent opacity-70 hover:opacity-100"
             )}
           >
