@@ -1,3 +1,5 @@
+import Link from 'next/link'
+import { ArrowLeft } from 'lucide-react'
 import { client } from '@/sanity/lib/client'
 import { VERSION_BY_SLUG_QUERY } from '@/sanity/lib/queries'
 import { DotNavigation } from '@/components/ui/DotNavigation'
@@ -35,6 +37,14 @@ export default async function VersionPage({ params }: PageProps) {
 
   return (
     <div style={themeStyle} className="min-h-screen transition-colors duration-500">
+      <Link 
+        href="/" 
+        className="fixed top-4 left-4 md:top-6 md:left-6 z-50 p-3 rounded-full bg-black/10 dark:bg-white/10 backdrop-blur-md shadow-lg hover:bg-black/20 dark:hover:bg-white/20 transition-all border border-white/20 group"
+        aria-label="Back to Home"
+      >
+        <ArrowLeft size={24} className="text-black dark:text-white group-hover:-translate-x-1 transition-transform" />
+      </Link>
+
       <DotNavigation />
       
       <main className="w-full">
