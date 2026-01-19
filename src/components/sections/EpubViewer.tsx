@@ -38,6 +38,7 @@ export function EpubViewer({ url }: EpubViewerProps) {
         width: '100%',
         height: '100%',
         spread: initialSpread ? 'always' : 'none',
+        allowScriptedContent: true,
       })
       renditionRef.current = rendition
 
@@ -45,6 +46,28 @@ export function EpubViewer({ url }: EpubViewerProps) {
         setIsReady(true)
         updateLocationState(rendition)
       })
+
+      // Fix: Handle internal links (TOC) to prevent 404
+      rendition.on('linkClicked', (href: string) => {
+        // e.preventDefault() is redundant here as epub.js handles it, 
+        // but we need to ensure it uses rendition.display()
+        console.log('Link clicked:', href)
+        // If href contains anchor
+        if (href.indexOf('#') > -1) {
+             const target = href.substring(href.indexOf('#')) // Get ID
+             rendition.display(target)
+        } else {
+             // If file path
+             rendition.display(href)
+        }
+      })
+
+      // Keyboard Navigation
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === 'ArrowRight') rendition.next()
+        if (e.key === 'ArrowLeft') rendition.prev()
+      }
+      document.addEventListener('keydown', handleKeyDown)
 
       rendition.on('relocated', (location: any) => {
         updateLocationState(rendition)
