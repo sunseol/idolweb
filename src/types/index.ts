@@ -14,4 +14,5 @@ export interface ContentVersion {
   covers: Image[]
   lyrics?: PortableTextBlock[]
   epubURL?: string
+  audioURL?: string
 }

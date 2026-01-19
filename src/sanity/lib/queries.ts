@@ -20,6 +20,7 @@ export const VERSION_BY_SLUG_QUERY = groq`
     covers,
     lyrics,
     "epubURL": epubFile.asset->url,
+    "audioURL": audioFile.asset->url,
     publishedAt
   }
 `;

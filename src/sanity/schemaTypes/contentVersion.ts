@@ -76,5 +76,14 @@ export const contentVersion = defineType({
       },
       validation: (rule) => rule.required(),
     }),
+    defineField({
+      name: 'audioFile',
+      title: 'Audio File',
+      type: 'file',
+      options: {
+        accept: 'audio/*',
+      },
+      description: 'Upload MP3/WAV file.',
+    }),
   ],
 })

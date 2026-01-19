@@ -7,6 +7,7 @@ import type { ContentVersion } from '@/types'
 import { CoversSection } from '@/components/sections/CoversSection'
 import { LyricsSection } from '@/components/sections/LyricsSection'
 import { EpubSection } from '@/components/sections/EpubSection'
+import { AudioSection } from '@/components/sections/AudioSection'
 
 export const revalidate = 60
 
@@ -39,6 +40,7 @@ export default async function VersionPage({ params }: PageProps) {
       <main className="w-full">
         <CoversSection version={version} />
         <LyricsSection version={version} />
+        {version.audioURL && <AudioSection version={version} />}
         <EpubSection version={version} />
       </main>
     </div>

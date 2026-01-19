@@ -2,11 +2,12 @@
 
 import { useEffect, useState } from 'react'
 import { cn } from '@/lib/utils'
-import { Circle, Disc, BookOpen, Music, Image as ImageIcon } from 'lucide-react'
+import { Circle, Disc, BookOpen, Music, Image as ImageIcon, Headphones } from 'lucide-react'
 
 const SECTIONS = [
   { id: 'covers', label: 'Covers', icon: ImageIcon },
   { id: 'lyrics', label: 'Lyrics', icon: Music },
+  { id: 'audio', label: 'Audio', icon: Headphones },
   { id: 'epub', label: 'EPUB', icon: BookOpen },
 ]
 
