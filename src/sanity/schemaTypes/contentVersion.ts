@@ -78,12 +78,51 @@ export const contentVersion = defineType({
     }),
     defineField({
       name: 'audioFile',
-      title: 'Audio File',
+      title: 'Legacy Audio File',
       type: 'file',
       options: {
         accept: 'audio/*',
       },
-      description: 'Upload MP3/WAV file.',
+      hidden: true, // Hide legacy field
+      description: 'Deprecated. Use Tracks instead.',
+    }),
+    defineField({
+      name: 'tracks',
+      title: 'Tracks',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          title: 'Track',
+          fields: [
+            defineField({ name: 'title', type: 'string', title: 'Track Title', validation: rule => rule.required() }),
+            defineField({ name: 'audioFile', type: 'file', title: 'Audio File', options: { accept: 'audio/*' }, validation: rule => rule.required() }),
+            defineField({
+              name: 'syncedLyrics',
+              title: 'Synced Lyrics',
+              type: 'array',
+              of: [
+                {
+                  type: 'object',
+                  fields: [
+                    defineField({ name: 'timestamp', type: 'number', title: 'Timestamp (seconds)', description: 'Time in seconds (e.g. 12.5)' }),
+                    defineField({ name: 'text', type: 'string', title: 'Lyric Line' })
+                  ],
+                  preview: {
+                    select: { title: 'text', subtitle: 'timestamp' },
+                    prepare({ title, subtitle }) {
+                      return {
+                        title: title || 'Empty Line',
+                        subtitle: subtitle ? `${subtitle}s` : '0s'
+                      }
+                    }
+                  }
+                }
+              ]
+            })
+          ]
+        }
+      ]
     }),
   ],
 })

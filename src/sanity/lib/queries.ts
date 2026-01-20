@@ -21,6 +21,11 @@ export const VERSION_BY_SLUG_QUERY = groq`
     lyrics,
     "epubURL": epubFile.asset->url,
     "audioURL": audioFile.asset->url,
+    tracks[] {
+      title,
+      "audioURL": audioFile.asset->url,
+      syncedLyrics
+    },
     publishedAt
   }
 `;

@@ -5,6 +5,18 @@ export interface Theme {
   backgroundVariant?: 'dark' | 'light' | 'neon'
 }
 
+export interface SyncedLyric {
+  timestamp: number
+  text: string
+}
+
+export interface Track {
+  title: string
+  audioFile?: any
+  audioURL?: string
+  syncedLyrics?: SyncedLyric[]
+}
+
 export interface ContentVersion {
   _id: string
   title: string
@@ -14,5 +26,6 @@ export interface ContentVersion {
   covers: Image[]
   lyrics?: PortableTextBlock[]
   epubURL?: string
-  audioURL?: string
+  audioURL?: string // Legacy
+  tracks?: Track[]
 }
