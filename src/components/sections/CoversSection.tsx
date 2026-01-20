@@ -14,7 +14,7 @@ export function CoversSection({ version }: { version: ContentVersion }) {
 
   return (
     <section id="covers" className="min-h-screen flex flex-col md:flex-row p-4 md:p-8 lg:p-12 gap-4 md:gap-8 items-center justify-center">
-      <div className="w-full md:flex-1 aspect-video relative rounded-2xl overflow-hidden shadow-2xl">
+      <div className="w-full max-w-4xl aspect-video relative rounded-2xl overflow-hidden shadow-2xl">
         <Image
           src={urlFor(covers[heroIndex]).width(1200).url()}
           alt={`Hero cover ${heroIndex + 1}`}
