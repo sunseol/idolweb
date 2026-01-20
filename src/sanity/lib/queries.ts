@@ -24,7 +24,7 @@ export const VERSION_BY_SLUG_QUERY = groq`
     tracks[] {
       title,
       "audioURL": audioFile.asset->url,
-      syncedLyrics
+      lrc
     },
     publishedAt
   }

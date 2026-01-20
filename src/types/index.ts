@@ -14,7 +14,8 @@ export interface Track {
   title: string
   audioFile?: any
   audioURL?: string
-  syncedLyrics?: SyncedLyric[]
+  lrc?: string
+  syncedLyrics?: SyncedLyric[] // Parsed result
 }
 
 export interface ContentVersion {

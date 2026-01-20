@@ -6,7 +6,32 @@ import { Play, Pause, Volume2, VolumeX, Disc, SkipBack, SkipForward } from 'luci
 import { motion, AnimatePresence } from 'framer-motion'
 import { urlFor } from '@/sanity/lib/image'
 import { cn } from '@/lib/utils'
-import type { ContentVersion, Track } from '@/types'
+import type { ContentVersion, Track, SyncedLyric } from '@/types'
+
+const parseLrc = (lrcString: string): SyncedLyric[] => {
+  if (!lrcString) return []
+  const lines = lrcString.split('\n')
+  const result: SyncedLyric[] = []
+  
+  const timeRegex = /\[(\d{2}):(\d{2})(\.(\d{2,3}))?\]/
+
+  lines.forEach(line => {
+    const match = timeRegex.exec(line)
+    if (match) {
+      const minutes = parseInt(match[1])
+      const seconds = parseInt(match[2])
+      const milliseconds = match[4] ? parseInt(match[4].padEnd(3, '0')) : 0
+      const timestamp = minutes * 60 + seconds + milliseconds / 1000
+      const text = line.replace(timeRegex, '').trim()
+      
+      if (text) {
+        result.push({ timestamp, text })
+      }
+    }
+  })
+  
+  return result.sort((a, b) => a.timestamp - b.timestamp)
+}
 
 export function AudioSection({ version }: { version: ContentVersion }) {
   const audioRef = useRef<HTMLAudioElement>(null)
@@ -21,7 +46,10 @@ export function AudioSection({ version }: { version: ContentVersion }) {
 
   const tracks: Track[] = useMemo(() => {
     if (version.tracks && version.tracks.length > 0) {
-      return version.tracks
+      return version.tracks.map(track => ({
+        ...track,
+        syncedLyrics: track.lrc ? parseLrc(track.lrc) : (track.syncedLyrics || [])
+      }))
     } else if (version.audioURL) {
       return [{
         title: version.title,
